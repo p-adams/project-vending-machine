@@ -1,8 +1,11 @@
 <script lang="ts">
+    import VMItems from "./VMItems.svelte";
 </script>
 
 <div class="VM-container">
-    <div class="Window">window</div>
+    <div class="Window">
+        <VMItems />
+    </div>
     <aside class="Pay">pay</aside>
     <div class="Dispense">dispense</div>
     <div class="Return">return</div>
@@ -21,9 +24,8 @@
 
     .Window {
         grid-area: window;
-
-        outline: 1px solid gray;
         background: lightgray;
+        padding: 10px;
     }
 
     .Pay {
