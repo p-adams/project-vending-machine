@@ -1,19 +1,25 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import VendingMachine from "./lib/VendingMachine.svelte";
-  // TODO move socket server to independent module
-  const socket = new WebSocket("ws://localhost:8080");
-  // Connection opened
-  socket.addEventListener("open", (event) => {
-    socket.send("Hello Server!");
-  });
-  // Listen for messages
-  socket.addEventListener("message", (event) => {
-    console.log("Message from server ", event.data);
+  import store from "./socket";
+  let inventory = null;
+  onMount(() => {
+    store.subcribe((data) => {
+      const pData = JSON.parse(String(data));
+      switch (pData?.type) {
+        case "receive_inventory":
+          inventory = pData.inventory;
+          break;
+
+        default:
+          break;
+      }
+    });
   });
 </script>
 
 <main>
-  <VendingMachine />
+  <VendingMachine {inventory} />
 </main>
 
 <style>
