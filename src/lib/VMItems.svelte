@@ -1,12 +1,15 @@
 <script lang="ts">
     // TODO: implement file inventory upload for vendor_operator USER_ROLE[]
     export let inventory = [];
-    const gridItems = [...new Array(5)].map(() => new Array(5).fill(0));
+
     const labels = Array.from(Array(5))
         .map((_, i) => i + 65)
         .map((ch) => String.fromCharCode(ch));
 
-    function attachLabelsToInventory() {
+    function inventoryItems(): string[][] {
+        const gridItems: string[][] = [...new Array(5)].map(() =>
+            new Array(5).fill(0)
+        );
         for (const i in gridItems) {
             const item = gridItems[i];
             const label = labels[i];
@@ -14,13 +17,12 @@
                 item[j] = `${label}${j}`;
             }
         }
-        return inventory;
+        return gridItems;
     }
-    attachLabelsToInventory();
 </script>
 
 <div class="VMItems--grid-container">
-    {#each gridItems as item}
+    {#each inventoryItems() as item}
         {#each item as i}
             <div class="Item">
                 <div class="Item--display" />
