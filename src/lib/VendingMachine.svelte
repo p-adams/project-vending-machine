@@ -1,18 +1,13 @@
 <script lang="ts">
   import type { InventoryItems } from "src/socket";
-  import { onMount, afterUpdate } from "svelte";
+  import { buildVMItemGrid, stockVMWindow } from "../vmUtils";
   import VMItems from "./VMItems.svelte";
-
   export let inventory: InventoryItems;
-
-  afterUpdate(() => {
-    console.log(inventory);
-  });
 </script>
 
 <div class="VM-container">
   <div class="Window">
-    <VMItems />
+    <VMItems inventory={stockVMWindow(inventory)} />
   </div>
   <aside class="Pay">pay</aside>
   <div class="Dispense">dispense</div>

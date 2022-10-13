@@ -5,6 +5,7 @@ export interface InventoryItem {
   name: string;
   price: number;
   quantity: number;
+  label: string;
 }
 
 export type InventoryItems = InventoryItems[];
