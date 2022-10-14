@@ -1,15 +1,18 @@
 <script lang="ts">
   import type { InventoryItems } from "src/socket";
-  import { buildVMItemGrid, stockVMWindow } from "../vmUtils";
-  import VMItems from "./VMItems.svelte";
+  import { stockVMWindow } from "../vmUtils";
+  import VMItems from "./VMWindow/VMItems.svelte";
+  import VMWindow from "./VMWindow/index.svelte";
+  import VMPaymentPanel from "./VMPaymentPanel/index.svelte";
   export let inventory: InventoryItems;
 </script>
 
 <div class="VM-container">
-  <div class="Window">
+  <VMWindow>
     <VMItems inventory={stockVMWindow(inventory)} />
-  </div>
-  <aside class="Pay">pay</aside>
+  </VMWindow>
+  <VMPaymentPanel />
+  <!-- TODO: move to component lib -->
   <div class="Dispense">dispense</div>
   <div class="Return">return</div>
 </div>
@@ -23,16 +26,6 @@
       "window pay"
       "window pay"
       "dispense return";
-  }
-
-  .Window {
-    grid-area: window;
-    background: lightgray;
-    padding: 10px;
-  }
-
-  .Pay {
-    grid-area: pay;
   }
 
   .Dispense {

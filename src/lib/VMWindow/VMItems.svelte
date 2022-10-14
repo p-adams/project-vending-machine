@@ -46,12 +46,13 @@
     height: 75%;
     color: black;
     background-color: var(--display-bg);
+    font-size: small;
   }
   .Item--label {
     background-color: var(--label-bg);
     color: var(--label-font-color);
     font-family: var(--primary-font);
-    font-size: 12px;
+    font-size: smaller;
     font-weight: bold;
   }
 </style>
