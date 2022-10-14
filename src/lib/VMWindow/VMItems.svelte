@@ -1,11 +1,8 @@
 <script lang="ts">
-  import type { InventoryItems, InventoryItem } from "src/socket";
-  import { afterUpdate } from "svelte";
-  import { onMount } from "svelte";
+  import type { InventoryItem } from "src/socket";
 
   // TODO: implement file inventory upload for vendor_operator USER_ROLE[]
   export let inventory: InventoryItem[][] = null;
-  afterUpdate(() => console.log(inventory));
 </script>
 
 <div class="VMItems--grid-container">
