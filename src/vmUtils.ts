@@ -1,6 +1,6 @@
 import type { InventoryItem, InventoryItems } from "./socket";
 
-const labels = Array.from(Array(5))
+export const labels = Array.from(Array(5))
   .map((_, i) => i + 65)
   .map((ch) => String.fromCharCode(ch));
 
@@ -20,15 +20,15 @@ export function buildVMItemGrid(): string[][] {
 }
 
 export function stockVMWindow(inventory: InventoryItems): InventoryItem[][] {
-  const grid: any = buildVMItemGrid();
-  for (const row in grid) {
-    for (const col in grid[row]) {
-      const label = grid[row][col];
+  const vmWindow: any = buildVMItemGrid();
+  for (const row in vmWindow) {
+    for (const col in vmWindow[row]) {
+      const label = vmWindow[row][col];
       const inventoryItem = inventory?.[row][col];
       if (inventoryItem) {
-        (grid[row][col] as any) = { ...inventoryItem, label };
+        (vmWindow[row][col] as any) = { ...inventoryItem, label };
       }
     }
   }
-  return grid;
+  return vmWindow;
 }
