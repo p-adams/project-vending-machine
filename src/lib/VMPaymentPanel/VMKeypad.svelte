@@ -25,8 +25,9 @@
           }
         });
       } else {
-        // TODO: handle error
-        console.log("ERROR");
+        // TODO: handle error state
+        console.log("VALIDATION_ERROR");
+        keys = [];
       }
     }
   }
