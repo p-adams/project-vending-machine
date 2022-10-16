@@ -1,3 +1,4 @@
+import socket from ".";
 import { writable } from "svelte/store";
 
 export interface VMState {
@@ -8,6 +9,7 @@ const vmDataStore = writable<VMState>();
 
 function setSelectedKey(key: string) {
   vmDataStore.set({ selected_keycode: key });
+  socket.sendData({ type: "keycode_selected", data: key });
 }
 
 export default {

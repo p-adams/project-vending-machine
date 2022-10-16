@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import VendingMachine from "./lib/VendingMachine.svelte";
-  import store from "./socket";
+  import store from "./lib/store";
   let inventory = null;
   onMount(() => {
     store.subcribe((data) => {

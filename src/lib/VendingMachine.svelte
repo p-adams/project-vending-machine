@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { InventoryItems } from "src/socket";
+  import type { InventoryItems } from "src/lib/store/inventoryStore";
   import { stockVMWindow } from "../vmUtils";
   import VMItems from "./VMWindow/VMItems.svelte";
   import VMWindow from "./VMWindow/index.svelte";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import store from "../vmStore";
+  import store from "../store/vmStore";
   import { CLEAR_KEY, KEYS, validate } from "./vmKeypadUtils";
 
   let keys = [];

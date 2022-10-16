@@ -1,4 +1,4 @@
-import type { InventoryItem, InventoryItems } from "./socket";
+import type { InventoryItem, InventoryItems } from "./lib/store";
 
 export const labels = Array.from(Array(5))
   .map((_, i) => i + 65)

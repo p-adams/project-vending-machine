@@ -1,8 +1,8 @@
 <script lang="ts">
   // TODO: implement file inventory upload for vendor_operator USER_ROLE[]
   import { afterUpdate, tick } from "svelte";
-  import store from "../vmStore";
-  import type { InventoryItem } from "src/socket";
+  import store from "../store/vmStore";
+  import type { InventoryItem } from "src/lib/store/inventoryStore";
   export let inventory: InventoryItem[][] = null;
   let selectedKeyCode = null;
   afterUpdate(async () => {
@@ -17,6 +17,7 @@
       <div class={`Item ${selectedKeyCode === i.label ? "Active" : ""}`}>
         <div class="Item--display">
           {i.name ?? ""}
+          <span class="Price">{i.price ?? "--"}</span>
         </div>
         <div class="Item--label">
           {i.label ?? i}
@@ -60,5 +61,9 @@
     font-family: var(--primary-font);
     font-size: smaller;
     font-weight: bold;
+  }
+  .Price::before {
+    font-size: xx-small;
+    content: "$";
   }
 </style>
