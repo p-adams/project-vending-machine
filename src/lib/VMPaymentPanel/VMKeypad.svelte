@@ -1,7 +1,9 @@
 <script lang="ts">
+  import store from "../vmStore";
+  import { CLEAR_KEY, KEYS, validate } from "./vmKeypadUtils";
+
   let keys = [];
   let isProcessingKeycode = false;
-  const CLEAR_KEY = "CLEAR";
 
   function registerKey(key) {
     if (key === CLEAR_KEY) {
@@ -15,7 +17,7 @@
     const kStr = [...keys].join("");
     if (keys.length === 2) {
       if (validate(kStr)) {
-        // TODO: emit message to VMWindow with selection
+        store.setSelectedKey(kStr);
         isProcessingKeycode = true;
         // mock async process
         processKeycode().then((res) => {
@@ -40,32 +42,7 @@
     });
   }
 
-  function validate(keyStr: string) {
-    const re = new RegExp("[A-E]+[0-4]");
-    return re.test(keyStr);
-  }
-
   $: keyStr = [...keys].join("");
-  const KEYS = [
-    "A",
-    "1",
-    "2",
-    "B",
-    "3",
-    "4",
-    "C",
-    "5",
-    "6",
-    "D",
-    "7",
-    "8",
-    "E",
-    "9",
-    "0",
-    "",
-    CLEAR_KEY,
-    "",
-  ];
 </script>
 
 <input bind:value={keyStr} />

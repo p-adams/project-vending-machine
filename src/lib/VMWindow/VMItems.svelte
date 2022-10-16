@@ -1,14 +1,20 @@
 <script lang="ts">
-  import type { InventoryItem } from "src/socket";
-
   // TODO: implement file inventory upload for vendor_operator USER_ROLE[]
+  import { afterUpdate, tick } from "svelte";
+  import store from "../vmStore";
+  import type { InventoryItem } from "src/socket";
   export let inventory: InventoryItem[][] = null;
+  let selectedKeyCode = null;
+  afterUpdate(async () => {
+    await tick();
+    store.subscribe((key) => (selectedKeyCode = key?.selected_keycode));
+  });
 </script>
 
 <div class="VMItems--grid-container">
   {#each inventory as item}
     {#each item as i}
-      <div class="Item">
+      <div class={`Item ${selectedKeyCode === i.label ? "Active" : ""}`}>
         <div class="Item--display">
           {i.name ?? ""}
         </div>
@@ -38,6 +44,9 @@
     display: flex;
     flex-direction: column;
     outline: 1px solid #f1f1f1;
+  }
+  .Item.Active {
+    outline: 3px solid cornflowerblue;
   }
   .Item--display {
     height: 75%;
