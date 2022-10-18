@@ -10,7 +10,6 @@ socket.addEventListener("open", (event) => {
     const { channel }: { channel: "inventory | vm"; type: string; data: any } =
       JSON.parse(event.data);
 
-    console.log("message", channel);
     store.set(event.data);
   });
 })(dataStore);
