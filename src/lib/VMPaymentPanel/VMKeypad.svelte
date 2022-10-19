@@ -70,4 +70,13 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(6, 1fr);
   }
+
+  .Keypad button {
+    color: white;
+    font-weight: 700;
+    background-color: #42413c2e;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 3px;
+  }
 </style>

@@ -1,4 +1,4 @@
-export const CLEAR_KEY = "❌";
+export const CLEAR_KEY = "✖";
 export const CONFIRM_KEY = "✔";
 export const KEYS = [
   "A",
