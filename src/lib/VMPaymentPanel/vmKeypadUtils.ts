@@ -1,4 +1,5 @@
-export const CLEAR_KEY = "CLEAR";
+export const CLEAR_KEY = "❌";
+export const CONFIRM_KEY = "✔";
 export const KEYS = [
   "A",
   "1",
@@ -15,9 +16,9 @@ export const KEYS = [
   "E",
   "9",
   "0",
-  "",
   CLEAR_KEY,
-  "",
+  null,
+  CONFIRM_KEY,
 ];
 
 export function validate(keyStr: string) {

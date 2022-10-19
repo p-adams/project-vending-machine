@@ -1,60 +1,66 @@
 <script lang="ts">
   import store from "../store/vmStore";
-  import { CLEAR_KEY, KEYS, validate } from "./vmKeypadUtils";
-
+  import { CLEAR_KEY, CONFIRM_KEY, KEYS, validate } from "./vmKeypadUtils";
+  let isMagnified = false;
+  let hasError = false;
   let keys = [];
-  let isProcessingKeycode = false;
 
   function registerKey(key) {
     if (key === CLEAR_KEY) {
+      hasError = false;
       keys = [];
       return;
     }
+
     if (!keys.includes(key) && keys.length < 2) {
       keys = [...keys, key];
     }
 
-    const kStr = [...keys].join("");
-    if (keys.length === 2) {
-      if (validate(kStr)) {
-        store.setSelectedKey(kStr);
-        isProcessingKeycode = true;
-        // mock async process
-        processKeycode().then((res) => {
-          if (res === "transaction_complete") {
-            isProcessingKeycode = false;
-            keys = [];
-          }
-        });
+    const selectedKeyStr = [...keys].join("");
+
+    if (keys.length === 2 && key === CONFIRM_KEY) {
+      if (validate(selectedKeyStr)) {
+        store.setSelectedKey(selectedKeyStr);
+        keys = [];
+        hasError = false;
+        return;
       } else {
-        // TODO: handle error state
-        console.log("VALIDATION_ERROR");
+        hasError = true;
         keys = [];
       }
     }
   }
 
-  function processKeycode() {
-    return new Promise((res) => {
-      setTimeout(() => {
-        res("transaction_complete");
-      }, 3000);
-    });
-  }
-
-  $: keyStr = [...keys].join("");
+  $: keyStr = !hasError
+    ? [...keys]
+        .filter((key) => key !== CLEAR_KEY && key !== CONFIRM_KEY)
+        .join("")
+    : "ERROR";
 </script>
 
-<input bind:value={keyStr} />
-<div class="Keypad">
-  {#each KEYS as key}
-    <button on:click={() => registerKey(key)} disabled={isProcessingKeycode}
-      >{key}</button
-    >
-  {/each}
+<div class={`VMKeypad ${isMagnified ? "Magnify" : ""}`}>
+  <input bind:value={keyStr} />
+  <div class={`Keypad`}>
+    {#each KEYS as key}
+      <button on:click={() => registerKey(key)} disabled={key === null}
+        >{key ?? ""}</button
+      >
+    {/each}
+  </div>
 </div>
 
 <style>
+  .VMKeypad {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+  }
+
+  .VMKeypad.Magnify {
+    position: absolute;
+    left: 50px;
+  }
+
   input {
     margin-bottom: 10px;
   }

@@ -8,6 +8,7 @@
 
 <style>
   .Pay {
+    position: relative;
     grid-area: pay;
     padding: 10px;
     display: flex;
