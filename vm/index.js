@@ -24,7 +24,17 @@ wss.on("connection", (ws) => {
           })
         );
         break;
-
+      case "process_payment":
+        // mock async process
+        setTimeout(() => {
+          ws.send(
+            mToStr({
+              channel: "payment",
+              type: "payment_complete",
+            })
+          );
+        }, 500);
+        break;
       default:
         break;
     }
