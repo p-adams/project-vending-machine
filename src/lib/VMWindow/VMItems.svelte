@@ -1,5 +1,4 @@
 <script lang="ts">
-  // TODO: implement file inventory upload for vendor_operator USER_ROLE[]
   import { afterUpdate, tick } from "svelte";
   import store from "../store/vmStore";
   import type { InventoryItem } from "src/lib/store/inventoryStore";
