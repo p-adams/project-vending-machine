@@ -8,15 +8,7 @@ import SocketChannel from "./socket-channel";
 const wss = new WebSocketServer({ noServer: true });
 
 wss.on("connection", (ws: WebSocket) => {
-  if (!ws) {
-    return;
-  }
-  const socketChannel = new SocketChannel(ws);
-  socketChannel.ws.on("message", (data: string) => {
-    /**
-     * dataObj: {channel: "inventory | vm", type: string, data: string | number | object}
-     */
-
+  function messageHandler(socketChannel: SocketChannel, data: string) {
     const dataObj = JSON.parse(data);
     switch (dataObj.type) {
       case "fetch_inventory":
@@ -44,8 +36,14 @@ wss.on("connection", (ws: WebSocket) => {
       default:
         break;
     }
-    console.log("received: %s", data);
-  });
+  }
+  const socketChannel = new SocketChannel(ws);
+  /**
+   * dataObj: {channel: "inventory | vm", type: string, data: string | number | object}
+   */
+  socketChannel.receive("message", (data: string) =>
+    messageHandler(socketChannel, data)
+  );
 });
 
 const server = app.listen(PORT);

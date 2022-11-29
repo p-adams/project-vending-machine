@@ -8,4 +8,12 @@ export default class SocketChannel {
   public get ws(): WebSocket {
     return this.#ws;
   }
+
+  public receive(event = "message", handler: (d: string) => void) {
+    this.ws.on(event, (data: string) => handler(data));
+  }
+
+  public dispatch(data: any) {
+    this.ws.send(data);
+  }
 }
