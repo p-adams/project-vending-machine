@@ -9,7 +9,6 @@ const wss = new WebSocketServer({ noServer: true });
 
 wss.on("connection", (ws: WebSocket) => {
   const socketChannel = socketChannelCoordinator.init(ws);
-
   socketChannel.receive("message", (data) =>
     messageHandler(socketChannel, data)
   );
