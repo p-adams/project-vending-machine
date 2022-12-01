@@ -1,9 +1,5 @@
 import { WebSocket } from "ws";
 
-function mToStr(message: { channel: string; type: string; inventory?: any }) {
-  return JSON.stringify(message);
-}
-
 interface Dispatch {
   channel: string;
   type: string;
@@ -26,8 +22,8 @@ const SocketChannel: SocketChannel = {
     this.ws?.on(event, (data: string) => handler(data));
   },
   dispatch: function (data: Dispatch) {
-    const processedData = mToStr(data);
-    this.ws?.send(processedData);
+    const dataStr = JSON.stringify(data);
+    this.ws?.send(dataStr);
   },
   ws: null,
 };
