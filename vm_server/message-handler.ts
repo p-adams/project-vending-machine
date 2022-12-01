@@ -1,12 +1,11 @@
-import fs from "fs";
+import { inventoryCoordinator } from "./inventory-coordinator";
 import { SocketChannel } from "./socket-channel";
 
 export function messageHandler(socketChannel: SocketChannel, data: string) {
   const dataObj = JSON.parse(data);
   switch (dataObj.type) {
     case "fetch_inventory":
-      const rStock = fs.readFileSync("stock.json");
-      const inventory = JSON.parse(rStock.toLocaleString());
+      const inventory = inventoryCoordinator.init();
       socketChannel.dispatch({
         channel: "inventory",
         type: "receive_inventory",

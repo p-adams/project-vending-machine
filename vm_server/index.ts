@@ -3,12 +3,13 @@ const app = express();
 const PORT = 8080;
 import { WebSocketServer, WebSocket } from "ws";
 import { socketChannel as socketChannelCoordinator } from "./socket-channel";
-import { messageHandler } from "./messageHandler";
+import { messageHandler } from "./message-handler";
 
 const wss = new WebSocketServer({ noServer: true });
 
 wss.on("connection", (ws: WebSocket) => {
   const socketChannel = socketChannelCoordinator.init(ws);
+
   socketChannel.receive("message", (data) =>
     messageHandler(socketChannel, data)
   );
