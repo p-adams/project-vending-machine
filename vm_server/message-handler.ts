@@ -3,13 +3,14 @@ import { SocketChannel } from "./socket-channel";
 
 export function messageHandler(socketChannel: SocketChannel, data: string) {
   const dataObj = JSON.parse(data);
+  const invtCoordinator = inventoryCoordinator.init();
+
   switch (dataObj.type) {
     case "fetch_inventory":
-      const inventory = inventoryCoordinator.init();
       socketChannel.dispatch({
         channel: "inventory",
         type: "receive_inventory",
-        data: inventory,
+        data: invtCoordinator.get(),
       });
 
       break;

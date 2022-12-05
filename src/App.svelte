@@ -8,9 +8,8 @@
       const pData = JSON.parse(String(data));
       switch (pData?.type) {
         case "receive_inventory":
-          inventory = pData.inventory;
+          inventory = pData.data;
           break;
-
         default:
           break;
       }

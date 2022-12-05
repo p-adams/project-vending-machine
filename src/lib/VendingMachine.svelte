@@ -4,6 +4,7 @@
   import VMItems from "./VMWindow/VMItems.svelte";
   import VMWindow from "./VMWindow/index.svelte";
   import VMPaymentPanel from "./VMPaymentPanel/index.svelte";
+  import { onMount } from "svelte";
 
   export let inventory: InventoryItems;
 </script>

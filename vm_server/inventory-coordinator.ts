@@ -3,19 +3,23 @@ import fs from "fs";
 interface InventoryCoordinator {
   inventory: any;
   init: () => InventoryCoordinator;
-  getInventory: (fileName: string) => Buffer;
+  get: () => any;
 }
+
+const fetchData = function (path: string): Buffer {
+  return fs.readFileSync(path);
+};
 
 const InventoryCoordinator: InventoryCoordinator = {
   init: function () {
-    this.inventory = JSON.parse(
-      this.getInventory("stock.json").toLocaleString()
-    );
+    this.inventory = JSON.parse(fetchData("stock.json").toLocaleString());
     return this;
   },
-  getInventory: function (path: string) {
-    return fs.readFileSync(path);
+
+  get: function () {
+    return this.inventory;
   },
+
   inventory: null,
 };
 
