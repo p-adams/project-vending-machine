@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 
-interface Dispatch {
+export interface Dispatch {
   channel: string;
   type: string;
   data?: any;

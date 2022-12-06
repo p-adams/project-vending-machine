@@ -41,7 +41,7 @@
 <div class={`VMKeypad ${isMagnified ? "Magnify" : ""}`}>
   <input bind:value={keyStr} />
   <div class={`Keypad`}>
-    {#each KEYS as key}
+    {#each KEYS as key, i}
       <button on:click={() => registerKey(key)} disabled={key === null}
         >{key ?? ""}</button
       >
