@@ -12,7 +12,7 @@ type InventoryItems = InventoryItem[][] | null;
 interface InventoryCoordinator {
   inventory: InventoryItems;
   init: () => InventoryCoordinator;
-  get: () => any;
+  get: () => InventoryItems;
   processOrder: (r: number, c: number) => InventoryItem | number;
 }
 
@@ -37,11 +37,13 @@ const InventoryCoordinator: InventoryCoordinator = {
     this.inventory = JSON.parse(fetchData("stock.json").toLocaleString());
     return this;
   },
-  get: function () {
+  get: function (): InventoryItems {
     return this.inventory;
   },
   processOrder(row, col): InventoryItem | number {
-    const item = findItem(this.get(), row, col);
+    const item = this.get()?.[row]?.[col] ?? null;
+    // TODO: query db for quantity and decrement if quantity is positive value
+    // or return -1 to indicate item isn't in stock
     if (item?.quantity) {
       const iitem = { ...item, quantity: item.quantity - 1 };
       updateData("stock.json", iitem);
