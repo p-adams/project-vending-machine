@@ -2,7 +2,6 @@ import express from "express";
 const app = express();
 const PORT = 8080;
 import { WebSocketServer, WebSocket } from "ws";
-import _db from "./db";
 import { socketChannel as socketChannelCoordinator } from "./socket-channel";
 import { messageHandler } from "./message-handler";
 

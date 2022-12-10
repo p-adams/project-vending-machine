@@ -1,5 +1,5 @@
 import fs from "fs";
-import _db from "./db";
+import db from "./db";
 
 interface InventoryItem {
   id: number;
@@ -32,6 +32,12 @@ const findItem = function (
 ): InventoryItem | null {
   return inventory[row][col] ?? null;
 };
+
+function stockInventory() {
+  db.serialize(() => {
+    // db.run("")
+  });
+}
 
 const InventoryCoordinator: InventoryCoordinator = {
   init: function () {
