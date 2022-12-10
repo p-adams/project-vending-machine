@@ -14,15 +14,15 @@ export function messageHandler(socketChannel: SocketChannel, data: string) {
       break;
     case "keycode_selected":
       const [row, col]: [number, number] = dispatch.data;
-      // check inventory for item
-      // either send the client the item
-      // or send 0 indicating out-of-stock
-      const item = inventoryCoordinator.processOrder(row, col);
-      console.log("item: ", item);
+      // process item selection
+      // check db, either send the client the item
+      // or send -1 indicating out-of-stock
+      const selectedItem = inventoryCoordinator.processSelection(row, col);
+
       socketChannel.dispatch({
         channel: "vm",
-        type: "order_processed",
-        data: item,
+        type: "selection_processed",
+        data: selectedItem,
       });
 
       break;

@@ -1,4 +1,5 @@
 import fs from "fs";
+import _db from "./db";
 
 interface InventoryItem {
   id: number;
@@ -13,7 +14,7 @@ interface InventoryCoordinator {
   inventory: InventoryItems;
   init: () => InventoryCoordinator;
   get: () => InventoryItems;
-  processOrder: (r: number, c: number) => InventoryItem | number;
+  processSelection: (r: number, c: number) => InventoryItem | number;
 }
 
 const fetchData = function (path: string): Buffer {
@@ -40,7 +41,7 @@ const InventoryCoordinator: InventoryCoordinator = {
   get: function (): InventoryItems {
     return this.inventory;
   },
-  processOrder(row, col): InventoryItem | number {
+  processSelection(row, col): InventoryItem | number {
     const item = this.get()?.[row]?.[col] ?? null;
     // TODO: query db for quantity and decrement if quantity is positive value
     // or return -1 to indicate item isn't in stock
