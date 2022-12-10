@@ -14,7 +14,7 @@ interface InventoryCoordinator {
   inventory: InventoryItems;
   init: () => InventoryCoordinator;
   get: () => InventoryItems;
-  processSelection: (r: number, c: number) => InventoryItem | number;
+  processSelection: (r: number, c: number) => InventoryItem | -1;
 }
 
 const fetchData = function (path: string): Buffer {
@@ -47,7 +47,7 @@ const InventoryCoordinator: InventoryCoordinator = {
   get: function (): InventoryItems {
     return this.inventory;
   },
-  processSelection(row, col): InventoryItem | number {
+  processSelection(row, col): InventoryItem | -1 {
     const item = this.get()?.[row]?.[col] ?? null;
     // TODO: query db for quantity and decrement if quantity is positive value
     // or return -1 to indicate item isn't in stock
