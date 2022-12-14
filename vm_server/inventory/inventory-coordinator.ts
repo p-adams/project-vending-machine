@@ -21,10 +21,6 @@ const fetchData = function (path: string): Buffer {
   return fs.readFileSync(path);
 };
 
-const updateData = function (path: string, data: any) {
-  const ddata = JSON.stringify(data);
-  fs.writeFileSync(path, ddata);
-};
 const findItem = function (
   inventory: any[][],
   row: number,
