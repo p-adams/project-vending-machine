@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "serve": "ts-node-dev index.ts",
+    "seed": "ts-node-dev db/scripts/seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
