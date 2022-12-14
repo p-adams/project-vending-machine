@@ -1,5 +1,5 @@
 import fs from "fs";
-import db from "./db";
+import db from "../db";
 
 interface InventoryItem {
   id: number;
@@ -52,8 +52,6 @@ const InventoryCoordinator: InventoryCoordinator = {
     // TODO: query db for quantity and decrement if quantity is positive value
     // or return -1 to indicate item isn't in stock
     if (item?.quantity) {
-      const iitem = { ...item, quantity: item.quantity - 1 };
-      updateData("stock.json", iitem);
       return item;
     }
     return -1;

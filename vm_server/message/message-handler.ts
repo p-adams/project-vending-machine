@@ -1,5 +1,5 @@
-import { inventoryCoordinator } from "./inventory-coordinator";
-import { SocketChannel, Dispatch } from "./socket-channel";
+import { inventoryCoordinator } from "../inventory/inventory-coordinator";
+import { SocketChannel, Dispatch } from "../socket/socket-channel";
 
 export function messageHandler(socketChannel: SocketChannel, data: string) {
   const dispatch: Dispatch = JSON.parse(data);
