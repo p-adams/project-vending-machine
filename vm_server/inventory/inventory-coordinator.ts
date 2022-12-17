@@ -1,4 +1,3 @@
-import fs from "fs";
 import db from "../db";
 
 interface InventoryItem {
@@ -17,10 +16,6 @@ interface InventoryCoordinator {
   processSelection: (r: number, c: number) => InventoryItem | -1;
 }
 
-const fetchData = function (path: string): Buffer {
-  return fs.readFileSync(path);
-};
-
 const findItem = function (
   inventory: any[][],
   row: number,
@@ -37,7 +32,7 @@ function stockInventory() {
 
 const InventoryCoordinator: InventoryCoordinator = {
   init: function () {
-    this.inventory = JSON.parse(fetchData("stock.json").toLocaleString());
+    this.inventory = []; // TODO: get inventory from DB;
     return this;
   },
   get: function (): InventoryItems {
