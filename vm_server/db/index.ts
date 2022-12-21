@@ -9,8 +9,8 @@ const db = new sqlite3.Database(":memory:", async (error) => {
 
 db.serialize(async () => {
   // initialize inventory table if it doesn't already exist
-  // TODO: define table columns
-  const CREATE_INVENTORY_TABLE = "CREATE TABLE IF NOT EXISTS inventory ()";
+  const CREATE_INVENTORY_TABLE =
+    "CREATE TABLE IF NOT EXISTS inventory (id integer primary key, name text, price real, quantity integer)";
   db.run(CREATE_INVENTORY_TABLE, (err) => {
     if (err) {
       console.log(err);
