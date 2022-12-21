@@ -18,7 +18,9 @@ db.serialize(async () => {
     }
   });
   // seed database with inventory json data
-  const inventory = await (await import("./stock.json")).default;
+  const inventory: InventoryItem[][] = await (
+    await import("./stock.json")
+  ).default;
   for (const inventoryItemRow of inventory) {
     for (const inventoryItem of inventoryItemRow) {
       console.log(inventoryItem);

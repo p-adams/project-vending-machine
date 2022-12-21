@@ -1,12 +1,5 @@
 import db from "../db";
 
-interface InventoryItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
 type InventoryItems = InventoryItem[][] | null;
 
 interface InventoryCoordinator {
