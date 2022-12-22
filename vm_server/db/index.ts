@@ -1,4 +1,5 @@
 import sqlite3 from "sqlite3";
+import { InventoryItem } from "../types";
 
 const db = new sqlite3.Database(":memory:", async (error) => {
   if (error) {
@@ -16,6 +17,7 @@ db.serialize(async () => {
       console.log(err);
       throw err;
     }
+    console.log("Created inventory table");
   });
   // seed database with inventory json data
   const inventory: InventoryItem[][] = await (

@@ -1,4 +1,5 @@
 import db from "../db";
+import { InventoryItem } from "../types";
 
 type InventoryItems = InventoryItem[][] | null;
 
