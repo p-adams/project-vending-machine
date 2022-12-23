@@ -6,10 +6,13 @@ class Logger {
     this.path = path;
   }
   write(data: string) {
-    fs.writeFileSync(path.join(__dirname, this.path), data);
+    fs.appendFileSync(path.join(__dirname, this.path), data);
   }
   read() {
     fs.readFileSync(this.path);
+  }
+  clear() {
+    fs.writeFileSync(path.join(__dirname), "");
   }
 }
 
@@ -22,6 +25,9 @@ class DBLogger extends Logger {
   }
   read(): void {
     super.read();
+  }
+  clear(): void {
+    super.clear();
   }
 }
 
