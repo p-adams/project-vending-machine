@@ -4,10 +4,13 @@ import { InventoryItem } from "../types";
 
 const db = new sqlite3.Database(":memory:", async (error) => {
   if (error) {
+    dBLogger.write({
+      event: "CONNECTION ERROR",
+      data: "Error connecting to DB",
+    });
     return console.error(error.message);
   }
-  dBLogger.write("Connected to DB");
-  console.log("Connected to DB");
+  dBLogger.write({ event: "CONNECTION", data: "Connected to DB" });
 });
 
 db.serialize(async () => {
