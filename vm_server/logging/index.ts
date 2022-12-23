@@ -9,20 +9,25 @@ class Logger {
   constructor(private path: string) {
     this.path = path;
   }
-  write({ event, data }: WriteAction) {
-    const lineItem = `${JSON.stringify({
-      event,
-      data,
-      timestamp: new Date(),
-    })}\n`;
-
-    fs.appendFileSync(path.join(__dirname, this.path), lineItem);
+  write(writeAction: WriteAction) {
+    fs.appendFileSync(
+      path.join(__dirname, this.path),
+      Logger.createLineItem(writeAction)
+    );
   }
   read() {
     fs.readFileSync(this.path);
   }
   clear() {
     fs.writeFileSync(path.join(__dirname), "");
+  }
+  static createLineItem(writeAction: WriteAction) {
+    const { data, event } = writeAction;
+    return `${JSON.stringify({
+      event,
+      data,
+      timestamp: new Date(),
+    })}\n`;
   }
 }
 
