@@ -6,7 +6,8 @@ class Logger {
     this.path = path;
   }
   write(data: string) {
-    fs.appendFileSync(path.join(__dirname, this.path), data);
+    const dataWithTimestamp = `${data}: ${new Date()}\n`;
+    fs.appendFileSync(path.join(__dirname, this.path), dataWithTimestamp);
   }
   read() {
     fs.readFileSync(this.path);

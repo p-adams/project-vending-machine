@@ -1,10 +1,12 @@
 import sqlite3 from "sqlite3";
+import { dBLogger } from "../logging/index";
 import { InventoryItem } from "../types";
 
 const db = new sqlite3.Database(":memory:", async (error) => {
   if (error) {
     return console.error(error.message);
   }
+  dBLogger.write("Connected to DB");
   console.log("Connected to DB");
 });
 
