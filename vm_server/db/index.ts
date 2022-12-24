@@ -4,34 +4,42 @@ import { InventoryItem } from "../types";
 
 const db = new sqlite3.Database(":memory:", async (error) => {
   if (error) {
-    dBLogger.write({
+    /*dBLogger.write({
       event: "CONNECTION ERROR",
       data: "Error connecting to DB",
-    });
+    });*/
     return console.error(error.message);
   }
-  dBLogger.write({ event: "CONNECTION", data: "Connected to DB" });
+  // dBLogger.write({ event: "CONNECTION", data: "Connected to DB" });
+  console.log("Connected to DB");
 });
 
-db.serialize(async () => {
-  // initialize inventory table if it doesn't already exist
-  const CREATE_INVENTORY_TABLE =
-    "CREATE TABLE IF NOT EXISTS inventory (id integer primary key, name text, price real, quantity integer)";
-  db.run(CREATE_INVENTORY_TABLE, (err) => {
-    if (err) {
-      console.log(err);
-      throw err;
-    }
-    console.log("Created inventory table");
+function createTable() {
+  return new Promise((resolve, reject) => {
+    const CREATE_INVENTORY_TABLE =
+      "CREATE TABLE IF NOT EXISTS inventory (id integer primary key, name text, price real, quantity integer)";
+    return db.run(CREATE_INVENTORY_TABLE, (err) => {
+      if (err) {
+        reject(err);
+      }
+      return resolve("Created inventory table");
+    });
   });
-  // seed database with inventory json data
-  const inventory: InventoryItem[][] = await (
-    await import("./stock.json")
-  ).default;
-  for (const inventoryItemRow of inventory) {
-    for (const inventoryItem of inventoryItemRow) {
-      console.log(inventoryItem);
+}
+
+db.serialize(async () => {
+  try {
+    await createTable();
+    const inventory: InventoryItem[][] = await (
+      await import("./stock.json")
+    ).default;
+    for (const inventoryItemRow of inventory) {
+      for (const inventoryItem of inventoryItemRow) {
+        console.log(inventoryItem);
+      }
     }
+  } catch (error) {
+    console.error(error);
   }
 });
 
