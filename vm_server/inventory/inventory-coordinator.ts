@@ -32,7 +32,6 @@ function getInventory() {
 const InventoryCoordinator: InventoryCoordinator = {
   init: async function () {
     const data = await getInventory();
-    console.log("data:", data);
     this.inventory = []; // TODO: get inventory from DB;
     return this;
   },
