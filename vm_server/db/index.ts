@@ -59,4 +59,13 @@ db.serialize(async () => {
   }
 });
 
-export default db;
+export function getInventory() {
+  return new Promise((resolve, reject) => {
+    return db.all("SELECT * FROM inventory", (err, row) => {
+      if (err) {
+        reject(err.message);
+      }
+      resolve(row);
+    });
+  });
+}

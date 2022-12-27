@@ -1,4 +1,4 @@
-import db from "../db";
+import { getInventory } from "../db";
 import { InventoryItem } from "../types";
 
 type InventoryItems = InventoryItem[][] | null;
@@ -17,17 +17,6 @@ const findItem = function (
 ): InventoryItem | null {
   return inventory[row][col] ?? null;
 };
-
-function getInventory() {
-  return new Promise((resolve, reject) => {
-    return db.all("SELECT * FROM inventory", (err, row) => {
-      if (err) {
-        reject(err.message);
-      }
-      resolve(row);
-    });
-  });
-}
 
 const InventoryCoordinator: InventoryCoordinator = {
   init: async function () {
