@@ -5,7 +5,7 @@ type InventoryItems = InventoryItem[][] | null;
 
 interface InventoryCoordinator {
   inventory: InventoryItems;
-  init: () => InventoryCoordinator;
+  init: () => Promise<InventoryCoordinator>;
   get: () => InventoryItems;
   processSelection: (r: number, c: number) => InventoryItem | -1;
 }
@@ -18,14 +18,21 @@ const findItem = function (
   return inventory[row][col] ?? null;
 };
 
-function stockInventory() {
-  db.serialize(() => {
-    // db.run("")
+function getInventory() {
+  return new Promise((resolve, reject) => {
+    return db.all("SELECT * FROM inventory", (err, row) => {
+      if (err) {
+        reject(err.message);
+      }
+      resolve(row);
+    });
   });
 }
 
 const InventoryCoordinator: InventoryCoordinator = {
-  init: function () {
+  init: async function () {
+    const data = await getInventory();
+    console.log("data:", data);
     this.inventory = []; // TODO: get inventory from DB;
     return this;
   },

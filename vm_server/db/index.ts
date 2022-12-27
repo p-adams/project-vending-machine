@@ -4,10 +4,10 @@ import { InventoryItem } from "../types";
 
 const db = new sqlite3.Database(":memory:", async (error) => {
   if (error) {
-    /*dBLogger.write({
+    dBLogger.write({
       event: "CONNECTION ERROR",
-      data: "Error connecting to DB",
-    });*/
+      data: `Error connecting to DB: ${error.message}`,
+    });
     return console.error(error.message);
   }
   // dBLogger.write({ event: "CONNECTION", data: "Connected to DB" });
@@ -27,6 +27,22 @@ function createTable() {
   });
 }
 
+function insert(data: InventoryItem) {
+  const INSERT_INVENTORY_ITEM = `INSERT INTO inventory(name, price, quantity) VALUES (?,?,?)`;
+  return new Promise((resolve, reject) => {
+    return db.run(
+      INSERT_INVENTORY_ITEM,
+      [data.name, data.price, data.quantity],
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+        return resolve(`Inserted ${data.name} into inventory table`);
+      }
+    );
+  });
+}
+
 db.serialize(async () => {
   try {
     await createTable();
@@ -35,7 +51,7 @@ db.serialize(async () => {
     ).default;
     for (const inventoryItemRow of inventory) {
       for (const inventoryItem of inventoryItemRow) {
-        console.log(inventoryItem);
+        await insert(inventoryItem);
       }
     }
   } catch (error) {

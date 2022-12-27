@@ -1,31 +1,26 @@
 [
   [
     {
-      "id": 0,
       "name": "Cheez-It Original",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 1,
       "name": "Cheez-It Original",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 2,
       "name": "Cheez-It Original",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 3,
       "name": "Cheez-It Original",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 4,
       "name": "Cheez-It Original",
       "price": 2.5,
       "quantity": 10
@@ -33,31 +28,26 @@
   ],
   [
     {
-      "id": 5,
       "name": "Cheez-It Hot & Spicy",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 6,
       "name": "Cheez-It Hot & Spicy",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 7,
       "name": "Cheez-It Hot & Spicy",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 8,
       "name": "Cheez-It Hot & Spicy",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 9,
       "name": "Cheez-It Hot & Spicy",
       "price": 2.5,
       "quantity": 10
@@ -65,31 +55,26 @@
   ],
   [
     {
-      "id": 10,
       "name": "Cheez-It Grooves",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 11,
       "name": "Cheez-It Grooves",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 12,
       "name": "Cheez-It Grooves",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 13,
       "name": "Cheez-It Grooves",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 14,
       "name": "Cheez-It Grooves",
       "price": 2.5,
       "quantity": 10
@@ -97,31 +82,26 @@
   ],
   [
     {
-      "id": 15,
       "name": "Cheez-It Snaps",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 16,
       "name": "Cheez-It Snaps",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 17,
       "name": "Cheez-It Snaps",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 18,
       "name": "Cheez-It Snaps",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 19,
       "name": "Cheez-It Snaps",
       "price": 2.5,
       "quantity": 10
@@ -129,31 +109,26 @@
   ],
   [
     {
-      "id": 20,
       "name": "Cheez-It Snack Mix",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 21,
       "name": "Cheez-It Snack Mix",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 22,
       "name": "Cheez-It Snack Mix",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 23,
       "name": "Cheez-It Snack Mix",
       "price": 2.5,
       "quantity": 10
     },
     {
-      "id": 24,
       "name": "Cheez-It Snack Mix",
       "price": 2.5,
       "quantity": 10

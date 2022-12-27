@@ -1,9 +1,12 @@
 import { inventoryCoordinator } from "../inventory/inventory-coordinator";
 import { SocketChannel, Dispatch } from "../socket/socket-channel";
 
-export function messageHandler(socketChannel: SocketChannel, data: string) {
+export async function messageHandler(
+  socketChannel: SocketChannel,
+  data: string
+) {
   const dispatch: Dispatch = JSON.parse(data);
-  const invtCoordinator = inventoryCoordinator.init();
+  const invtCoordinator = await inventoryCoordinator.init();
   switch (dispatch.type) {
     case "fetch_inventory":
       socketChannel.dispatch({
