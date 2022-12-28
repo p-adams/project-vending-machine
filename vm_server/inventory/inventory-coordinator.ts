@@ -11,20 +11,23 @@ interface InventoryCoordinator {
 }
 
 const findItem = function (
-  inventory: any[][],
+  inventory: InventoryItems,
   row: number,
   col: number
 ): InventoryItem | null {
-  return inventory[row][col] ?? null;
+  return inventory?.[row][col] ?? null;
 };
 
-function createInventoryGroups(inventory: InventoryItem[]): InventoryItems {
+function createInventoryGroups(
+  inventory: InventoryItem[],
+  groupCount = 5
+): InventoryItems {
   return inventory.reduce(
     (list: InventoryItems, item, index): InventoryItems => {
       if (!list) {
         return [];
       }
-      const groupIdx = Math.floor(index / 5);
+      const groupIdx = Math.floor(index / groupCount);
       if (!list[groupIdx]) {
         list[groupIdx] = [];
       }
@@ -45,7 +48,7 @@ const InventoryCoordinator: InventoryCoordinator = {
     return this.inventory;
   },
   processSelection(row, col): InventoryItem | -1 {
-    const item = this.get()?.[row]?.[col] ?? null;
+    const item = findItem(this.get(), row, col);
     // TODO: query db for quantity and decrement if quantity is positive value
     // or return -1 to indicate item isn't in stock
     if (item?.quantity) {
