@@ -1,8 +1,8 @@
-import sqlite3 from "sqlite3";
+import { Database } from "sqlite3";
 import { dBLogger } from "../logging/index";
 import { InventoryItem } from "../types";
 
-const db = new sqlite3.Database(":memory:", async (error) => {
+const db = new Database(":memory:", async (error) => {
   if (error) {
     dBLogger.write({
       event: "CONNECTION ERROR",
@@ -59,9 +59,9 @@ db.serialize(async () => {
   }
 });
 
-export function getInventory() {
+export function getInventory(): Promise<InventoryItem[]> {
   return new Promise((resolve, reject) => {
-    return db.all("SELECT * FROM inventory", (err, row) => {
+    return db.all("SELECT * FROM inventory", (err, row: InventoryItem[]) => {
       if (err) {
         reject(err.message);
       }

@@ -18,10 +18,27 @@ const findItem = function (
   return inventory[row][col] ?? null;
 };
 
+function createInventoryGroups(inventory: InventoryItem[]): InventoryItems {
+  return inventory.reduce(
+    (list: InventoryItems, item, index): InventoryItems => {
+      if (!list) {
+        return [];
+      }
+      const groupIdx = Math.floor(index / 5);
+      if (!list[groupIdx]) {
+        list[groupIdx] = [];
+      }
+      list[groupIdx].push(item);
+      return list;
+    },
+    []
+  );
+}
+
 const InventoryCoordinator: InventoryCoordinator = {
   init: async function () {
     const data = await getInventory();
-    this.inventory = []; // TODO: get inventory from DB;
+    this.inventory = createInventoryGroups(data);
     return this;
   },
   get: function (): InventoryItems {
