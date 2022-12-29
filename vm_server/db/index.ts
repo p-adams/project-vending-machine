@@ -70,14 +70,35 @@ export function getInventory(): Promise<InventoryItem[]> {
   });
 }
 
-export function decrementInventoryItemQuantityById(id: number): Promise<any> {
-  const UPDATE_INVENTORY_ITEM = `UPDATE inventory SET quantity = quantity - 1 WHERE id = ${id}`;
+export function decrementInventoryItemQuantityById(
+  id: number | undefined
+): Promise<any> | null {
+  if (!id) {
+    return null;
+  }
+  const UPDATE_INVENTORY_ITEM =
+    "UPDATE inventory SET quantity = quantity - 1 WHERE id = ?";
   return new Promise((resolve, reject) => {
-    return db.run(UPDATE_INVENTORY_ITEM, (err) => {
+    return db.run(UPDATE_INVENTORY_ITEM, [id], (err) => {
       if (err) {
         reject(err.message);
       }
       resolve("Inventory item updated");
+    });
+  });
+}
+
+export function getInventoryItemById(id: number | undefined) {
+  if (!id) {
+    return null;
+  }
+  const GET_INVENTORY_ITEM = `SELECT * FROM inventory WHERE id = ? `;
+  return new Promise((resolve, reject) => {
+    return db.get(GET_INVENTORY_ITEM, [id], (err, row) => {
+      if (err) {
+        reject(err.message);
+      }
+      resolve(row);
     });
   });
 }

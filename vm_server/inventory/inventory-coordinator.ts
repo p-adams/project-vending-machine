@@ -1,4 +1,4 @@
-import { getInventory } from "../db";
+import { decrementInventoryItemQuantityById, getInventory } from "../db";
 import { InventoryItem } from "../types";
 
 type InventoryItems = InventoryItem[][] | null;
@@ -49,6 +49,7 @@ const InventoryCoordinator: InventoryCoordinator = {
   },
   processSelection(row, col): InventoryItem | -1 {
     const item = findItem(this.get(), row, col);
+    decrementInventoryItemQuantityById(item?.id);
     // TODO: query db for quantity and decrement if quantity is positive value
     // or return -1 to indicate item isn't in stock
     if (item?.quantity) {
