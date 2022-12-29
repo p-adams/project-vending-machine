@@ -88,7 +88,9 @@ export function decrementInventoryItemQuantityById(
   });
 }
 
-export function getInventoryItemById(id: number | undefined) {
+export function getInventoryItemById(
+  id: number | undefined
+): Promise<InventoryItem> | null {
   if (!id) {
     return null;
   }

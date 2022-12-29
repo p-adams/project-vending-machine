@@ -1,4 +1,8 @@
-import { decrementInventoryItemQuantityById, getInventory } from "../db";
+import {
+  decrementInventoryItemQuantityById,
+  getInventory,
+  getInventoryItemById,
+} from "../db";
 import { InventoryItem } from "../types";
 
 type InventoryItems = InventoryItem[][] | null;
@@ -7,7 +11,7 @@ interface InventoryCoordinator {
   inventory: InventoryItems;
   init: () => Promise<InventoryCoordinator>;
   get: () => InventoryItems;
-  processSelection: (r: number, c: number) => InventoryItem | -1;
+  processSelection: (r: number, c: number) => Promise<InventoryItems | -1>;
 }
 
 const findItem = function (
@@ -47,14 +51,16 @@ const InventoryCoordinator: InventoryCoordinator = {
   get: function (): InventoryItems {
     return this.inventory;
   },
-  processSelection(row, col): InventoryItem | -1 {
+  async processSelection(row, col): Promise<InventoryItems | -1> {
     const item = findItem(this.get(), row, col);
-    decrementInventoryItemQuantityById(item?.id);
-    // TODO: query db for quantity and decrement if quantity is positive value
-    // or return -1 to indicate item isn't in stock
-    if (item?.quantity) {
-      return item;
+    const inventoryItem = await getInventoryItemById(item?.id);
+    if (inventoryItem?.quantity) {
+      await decrementInventoryItemQuantityById(item?.id);
+      const data = await getInventory();
+      this.inventory = createInventoryGroups(data);
+      return this.inventory;
     }
+    // -1 denotes out-of-stock
     return -1;
   },
 
