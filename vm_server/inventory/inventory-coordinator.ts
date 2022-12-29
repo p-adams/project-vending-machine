@@ -12,6 +12,7 @@ interface InventoryCoordinator {
   init: () => Promise<InventoryCoordinator>;
   get: () => InventoryItems;
   processSelection: (r: number, c: number) => Promise<InventoryItems | -1>;
+  inventoryGroups: () => Promise<InventoryItems>;
 }
 
 const findItem = function (
@@ -44,8 +45,7 @@ function createInventoryGroups(
 
 const InventoryCoordinator: InventoryCoordinator = {
   init: async function () {
-    const data = await getInventory();
-    this.inventory = createInventoryGroups(data);
+    this.inventory = await this.inventoryGroups();
     return this;
   },
   get: function (): InventoryItems {
@@ -56,14 +56,16 @@ const InventoryCoordinator: InventoryCoordinator = {
     const inventoryItem = await getInventoryItemById(item?.id);
     if (inventoryItem?.quantity) {
       await decrementInventoryItemQuantityById(item?.id);
-      const data = await getInventory();
-      this.inventory = createInventoryGroups(data);
+      this.inventory = await this.inventoryGroups();
       return this.inventory;
     }
     // -1 denotes out-of-stock
     return -1;
   },
-
+  async inventoryGroups(): Promise<InventoryItems> {
+    const data = await getInventory();
+    return createInventoryGroups(data);
+  },
   inventory: null,
 };
 
