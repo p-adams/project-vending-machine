@@ -69,3 +69,15 @@ export function getInventory(): Promise<InventoryItem[]> {
     });
   });
 }
+
+export function decrementInventoryItemQuantityById(id: number): Promise<any> {
+  const UPDATE_INVENTORY_ITEM = `UPDATE inventory SET quantity = quantity - 1 WHERE id = ${id}`;
+  return new Promise((resolve, reject) => {
+    return db.run(UPDATE_INVENTORY_ITEM, (err) => {
+      if (err) {
+        reject(err.message);
+      }
+      resolve("Inventory item updated");
+    });
+  });
+}
